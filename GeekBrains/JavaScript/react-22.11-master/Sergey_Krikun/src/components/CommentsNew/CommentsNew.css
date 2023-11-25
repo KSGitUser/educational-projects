@@ -1,0 +1,12 @@
+.CommentsNew {
+  width: 80%;
+  margin-top: 40px;
+}
+
+.CommentsNew>h2 {
+  text-align: center;
+}
+
+.comment-item {
+  margin-bottom: 25px;
+}

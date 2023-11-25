@@ -1,0 +1,48 @@
+.HeaderOverlay {}
+
+.overlay-text-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 200px;
+  width:100%;
+  position: relative;
+}
+
+
+.img-overlay-container {
+  background: no-repeat center center;
+  background-color: #868e96;
+  background-attachment: scroll;
+  position: relative;
+  background-size: cover;
+  background-image: url(../../img/home-bg.jpg);
+  display: flex;
+}
+
+.overlap-title {
+  font-size: 6rem;
+  font-weight: 800;
+}
+
+.overlap-text {
+  font-size: 1.4rem;
+  font-weight: 300;
+  line-height: 1.1;
+  display: block;
+  margin: 10px 0 0;
+  font-family: 'Open Sans','Helvetica Neue',Helvetica,Arial,sans-serif;
+}
+
+.overlay-cover {
+  position: absolute;
+  top:0;
+  left:0;
+  right:0;
+  width: 100%;
+  height:100%;
+  opacity: 0.4;
+  background: black;
+}
+

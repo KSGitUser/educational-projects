@@ -1,0 +1,9 @@
+[mysqld]
+
+server_id=2
+
+binlog_do_db = personnel_db
+
+log_bin = masterbin.bin
+
+relay_log = /var/log/mysql/relay.log

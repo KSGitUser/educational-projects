@@ -1,0 +1,157 @@
+CREATE USER IF NOT EXISTS 'newuser'@'%' IDENTIFIED WITH mysql_native_password BY 'password';
+
+
+GRANT ALL PRIVILEGES ON *.* TO 'newuser'@'%' WITH GRANT OPTION;
+
+
+FLUSH PRIVILEGES;
+
+
+mysql> SELECT `user` FROM `mysql`.`user`;
++------------------+
+| user             |
++------------------+
+| december         |
+| geek29           |
+| newuser          |
+| root             |
+| dec07            |
+| fff              |
+| geek7            |
+| geek_nov         |
+| mysql.infoschema |
+| mysql.session    |
+| mysql.sys        |
+| october          |
+| october2         |
+| phpmyadmin       |
+| root             |
++------------------+
+15 rows in set (0,01 sec)
+
+
+mysql -u newuser -ppassword
+
+USE personnel_db
+
+SELECT * FROM `staff`;
+
+
+
++----+------------------+------------------+---------------+--------+------------------------+
+| id | name             | lastname         | department_id | salary | position               |
++----+------------------+------------------+---------------+--------+------------------------+
+|  1 | Анатолий         | Башлыков         |             1 |  35000 | Программист            |
+|  4 | Светлана         | Музыка           |             3 |  50000 | Бухгалтер              |
+|  6 | Егор             | Бровкин          |             1 |  27500 | Программист            |
++----+------------------+------------------+---------------+--------+------------------------+
+
+
+CREATE USER IF NOT EXISTS 'cutuser'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
+
+GRANT SELECT, DELETE ON `personnel_db`.`staff` TO 'cutuser'@'localhost';
+
+
+
+FLUSH PRIVILEGES;
+
+mysql> SELECT `user`, `host` FROM `mysql`.`user`;
++------------------+-----------+
+| user             | host      |
++------------------+-----------+
+| december         | %         |
+| geek29           | %         |
+| newuser          | %         |
+| root             | %         |
+| cutuser          | localhost |
+| dec07            | localhost |
+| fff              | localhost |
+| geek7            | localhost |
+| geek_nov         | localhost |
+| mysql.infoschema | localhost |
+| mysql.session    | localhost |
+| mysql.sys        | localhost |
+| october          | localhost |
+| october2         | localhost |
+| phpmyadmin       | localhost |
+| root             | localhost |
++------------------+-----------+
+16 rows in set (0,00 sec)
+
+
+quit
+
+mysql -u cutuser -ppassword
+
+mysql> USE personnel_db
+
+
+mysql> INSERT INTO `staff` (`name`, `department_id`) VALUES (`Евгений`,2);
+ERROR 1142 (42000): INSERT command denied to user 'cutuser'@'localhost' for table 'staff'
+
+
+--------------------------------------------------------------------------
+
+Задание 2-е
+
+2. Сделать резервную копию базы, удалить базу и пересоздать из бекапа.
+
+mysqldump -u root -p123123 personnel_db > personnel_db_dumb.sql
+
+
+personnel_db_dumb.sql  Документы  Изображения  Общедоступные  Шаблоны
+Видео		       Загрузки   Музыка       Рабочий\ стол
+
+
+
+mysql -u root -p123123
+
+
+mysql> DROP DATABASE personnel_db;
+
+mysql> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| countries_cities   |
+| information_schema |
+| mysql              |
+| performance_schema |
+| phpmyadmin         |
+| sys                |
++--------------------+
+6 rows in set (0,00 sec)
+
+
+mysql> CREATE DATABASE personnel_db;
+
+mysql> USE personnel_db;
+Database changed
+mysql> SHOW TABLES;
+Empty set (0,00 sec)
+
+quit
+
+mysql -u root -p123123 personnel_db < personnel_db_dumb.sql
+
+mysql -u root -p123123
+
+
+mysql> USE personnel_db;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> SHOW TABLES;
++------------------------+
+| Tables_in_personnel_db |
++------------------------+
+| average_salary         |
+| department             |
+| salary                 |
+| staff                  |
++------------------------+
+4 rows in set (0,00 sec)
+
+
+

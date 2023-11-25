@@ -1,0 +1,44 @@
+.Blognavbar {
+  background:rgba(0,0,0,0.0);
+  position: fixed;  
+  top:0;
+  left: 0;
+  right: 0;
+  transition: top 0.5s;
+  transition: background 0.5s ease-out
+}
+
+.Blognavbar.show-nav {
+  background: rgba(0,0,0,0.4);
+  position: fixed;  
+  visibility: visible;
+  top:0;
+  left: 0;
+  right: 0;
+  transition: all 0.3s ease-out
+}
+
+.Blognavbar.hide-nav {
+  background: rgba(0,0,0,0);
+  visibility: hidden;
+  transition: background 0.2s ease-out;
+  transition: visibility 0.2s ease-out;
+}
+
+.navbar_logo-text {
+  font-size: 1rem;
+  font-weight: 800;
+  padding:10px 40px;
+  font-family: 'Open Sans','Helvetica Neue',Helvetica,Arial,sans-serif;
+}
+
+.navbar-container {
+  background: 0 0;
+  position: absolute;
+  top:0;
+  left:0;
+  right:0;
+  z-index: 1030;
+}
+
+

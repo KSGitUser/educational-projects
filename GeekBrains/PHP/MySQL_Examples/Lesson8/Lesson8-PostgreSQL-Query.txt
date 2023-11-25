@@ -1,0 +1,139 @@
+PostgresSQL
+create schema my_lesson8;
+set search_path to my_lesson8;
+
+CREATE TABLE holiday_picnic (
+	holiday varchar(50),
+	sandwich text[],
+	side text[] [],
+	dessert text ARRAY,
+	beverage text ARRAY[4]
+);
+
+INSERT INTO holiday_picnic VALUES
+	('Первое мая',
+	'{"ростбиф","вегетарианский","индейка"}',
+	'{
+	 	{"картофельный салат", "весенний салат"},
+	 	{"чипсы","крэкеры"}
+	 }',
+	'{"фруктовый коктель", "якогдный пирог", "мороженное"}',
+	'{"содовая", "сок", "пиво", "вода"}'
+	);
+
+CREATE TABLE trails (
+	trail_name varchar(250),
+	trail_path path
+);
+
+INSERT INTO trails VALUES
+	('Dool Trail - Creeping Forest Trail Loop',
+	'((37.172,-122.22261666667),
+     (37.171616666667,-122.22385),
+     (37.1735,-122.2236),
+     (37.175416666667,-122.223),
+     (37.1758,-122.22378333333),
+     (37.179466666667,-122.22866666667),
+     (37.18395,-122.22675),
+     (37.180783333333,-122.22466666667),
+     (37.176116666667,-122.2222),
+     (37.1753,-122.22293333333),
+     (37.173116666667,-122.22281666667))'
+	);
+
+--Создание таблицы со своим типом данных
+
+CREATE TYPE wine AS (
+	wine_vineyard varchar(50),
+	wine_type varchar(50),
+	wine_year int
+);
+
+CREATE TABLE pairings (
+menu_entree varchar(50),
+wine_pairing wine
+);
+
+INSERT INTO pairings VALUES
+('Lobster Tail', ROW('Stag''s Leap', 'Chardonnay', 2012)),
+('Elk Medallions', ROW('Rombauer','Cabernet Sauvignon', 2012));
+
+SELECT (wine_pairing).wine_vineyard, (wine_pairing).wine_type FROM
+pairings WHERE menu_entree = 'Elk Medallions';
+
+wine_vineyard|       wine_type         |
+        -------------|-----------------------|
+   Rombauer     |Cabernet Sauvigno |
+
+------------------------------------------------------------------------------------------------------------
+Redis
+127.0.0.1:6379> set staff:1:string hello
+OK
+127.0.0.1:6379> get staff:1:string
+"hello"
+127.0.0.1:6379> strlen staff:1:string
+(integer) 5
+127.0.0.1:6379> ttl staff:1:string 
+(integer) -1
+127.0.0.1:6379> expire staff:1:string 150
+(integer) 1
+127.0.0.1:6379> ttl staff:1:string
+(integer) 143
+127.0.0.1:6379> append staff:1:string ", world!"
+(integer) 13
+127.0.0.1:6379> get staff:1:string
+"hello, world!"
+127.0.0.1:6379> 
+127.0.0.1:6379> getrange staff:1:string 7 11
+"world"
+127.0.0.1:6379> ttl staff:1:string
+(integer) -2
+127.0.0.1:6379> set staff:2:int 123 EX 200
+OK
+127.0.0.1:6379> ttl staff:2:int
+(integer) 183
+127.0.0.1:6379> incr staff:2:int
+(integer) 124
+127.0.0.1:6379> incr staff:2:int
+(integer) 125
+127.0.0.1:6379> incr staff:2:int
+(integer) 126
+127.0.0.1:6379> decr staff:2:int
+(integer) 125
+127.0.0.1:6379> decr staff:2:int
+(integer) 124
+127.0.0.1:6379> decr staff:2:int
+(integer) 123
+127.0.0.1:6379> decrby staff:2:int 10
+(integer) 113
+127.0.0.1:6379> decrby staff:2:int 10
+(integer) 103
+127.0.0.1:6379> incrby staff:2:int 100
+(integer) 203
+127.0.0.1:6379> get staff:2:int
+"203"
+127.0.0.1:6379> multi
+OK
+127.0.0.1:6379> set tran:1:int 150
+QUEUED
+127.0.0.1:6379> incrby staff:2:int 50
+QUEUED
+127.0.0.1:6379> incrby staff:2:int 50
+QUEUED
+127.0.0.1:6379> decrby staff:2:int 10
+QUEUED
+127.0.0.1:6379> exec
+1) OK
+2) (integer) 253
+3) (integer) 303
+4) (integer) 293
+
+
+
+
+
+
+
+
+
+

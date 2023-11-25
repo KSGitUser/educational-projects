@@ -1,0 +1,6 @@
+[submodule "Hackathons/FrontHak"]
+	path = Hackathons/FrontHak
+	url = git@github.com:KSGitUser/FrontHak.git
+[submodule "Hackathons/FrontHak-2019"]
+	path = Hackathons/FrontHak-2019
+	url = git@github.com:KSGitUser/FrontHak.git

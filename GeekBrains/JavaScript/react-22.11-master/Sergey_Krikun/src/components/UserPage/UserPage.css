@@ -1,0 +1,14 @@
+.UserPage {
+}
+
+.user-info-heading {
+  width: 80%;
+  margin: 40px auto;
+}
+
+.user-info-heading  {
+  text-align: center;
+  background-color: lightcyan;
+  border-radius: 15px;
+  padding: 15px;
+}
